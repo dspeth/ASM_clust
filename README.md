@@ -18,6 +18,36 @@ ASM-Clust is implemented in bash with two helper scripts in perl, and will take 
 - DIAMOND (Buchfink, Xie, and Huson 2015)
 - BLAST (Altschul et al. 1990)
 
+#### recommended setup
+
+I recommend running ASM_clust in a conda environment with the dependencies installed.
+
+1) Make a directory for ASM_clust and enter the directory.   
+```mkdir ASM_Clust```   
+```cd ASM_clust```   
+
+2) clone this repository    
+```git clone https://github.com/dspeth/ASM_clust.git```   
+
+3) clone the bh-tSNE repository, and compile the bh_tsne executable   
+```git clone https://github.com/lvdmaaten/bhtsne.git```   
+```cd bhtsne```   
+```g++ sptree.cpp tsne.cpp tsne_main.cpp -o bh_tsne -O2```   
+
+4) set up an anaconda environment with the alignment software installed   
+```conda create -n ASM_clust```   
+```conda activate ASM_clust```   
+```conda install -c bioconda -c conda-forge mmseqs2```   
+```conda install -c bioconda -c conda-forge blast=2.9.0```   
+```conda install -c bioconda -c conda-forge diamond```   
+
+5) add links to the relevant executables to the anaconda environment /bin directory to place them in you PATH when the environment is loaded.   
+``` ln -s /absolute/path/to/ASM_clust.sh /absolute/path/to/ASM_clust/conda/env/bin```   
+``` ln -s /absolute/path/to/merge_tab_files.pl /absolute/path/to/ASM_clust/conda/env/bin```   
+``` ln -s /absolute/path/to/tab_seq_lookup.pl /absolute/path/to/ASM_clust/conda/env/bin```   
+``` ln -s /absolute/path/to/bhtsne.py /absolute/path/to/ASM_clust/conda/env/bin```   
+``` ln -s /absolute/path/to/bh_tsne /absolute/path/to/ASM_clust/conda/env/bin```   
+
 #### Other user-defined options:
 
 - the number of sequences in the subset (default 1000)
