@@ -134,21 +134,25 @@ if [[ "$ALIGN" == "blast" ]]; then
 fi
 
 # parse blast alignment file
+printf "Alignment finished, parsing alignment file\n\n"
 while read id ; do grep -F "$id" "$BASE"_align > temp_"$id" ; done < "$BASE"_"$SUBSET"_ids
 for i in temp_* ; do awk -v filt="${i:5}" 'BEGIN{FS=OFS="\t"} $2==filt {print $0}' $i > hits_"${i:5}" ; done
 rm temp_*
 
+printf "Alignments parsed, generating alignment score matrix\n\n"
 for i in hits_* ; do merge_tab_files.pl "$BASE"_ids "$i" score_"${i:5}" ; done
 echo "seqID" >> "$BASE"_matrix
 cat "$BASE"_ids >> "$BASE"_matrix
 for i in score_* ; do cut -f 2 "$i" | paste "$BASE"_matrix - > "$BASE"_matrix_temp ; mv "$BASE"_matrix_temp "$BASE"_matrix ; done
 cut -f 2- "$BASE"_matrix > "$BASE"_matrix_wo_id
+tail -n+2 my_file "$BASE"_matrix_wo_id > "$BASE"_matrix_wo_id_wo_head
 
 ##### Run TSNE
-bhtsne.py -v -p $PERP -m $MAX_ITER -i "$BASE"_matrix_wo_id -o "$BASE"_matrix_wo_id_p"$PERP"_m"$MAX_ITER"
+printf "Alignment score matrix generated, running BH-tSNE\n\n"
+bhtsne.py -v -p $PERP -m $MAX_ITER -i "$BASE"_matrix_wo_id_wo_head -o "$BASE"_matrix_wo_id_wo_head_p"$PERP"_m"$MAX_ITER"
 
 ##### combine and format final tsne matrix file, and place in original directory
 echo -e id' \t 'tsne_1' \t 'tsne_2 > temp_header
-paste "$BASE"_ids "$BASE"_matrix_wo_id_p"$PERP"_m"$MAX_ITER" > "$BASE"_"$ALIGN"_tsne_p"$PERP"_m"$MAX_ITER"_no_header
+paste "$BASE"_ids "$BASE"_matrix_wo_id_wo_head_p"$PERP"_m"$MAX_ITER" > "$BASE"_"$ALIGN"_tsne_p"$PERP"_m"$MAX_ITER"_no_header
 cat temp_header "$BASE"_"$ALIGN"_tsne_p"$PERP"_m"$MAX_ITER"_no_header > "$BASE"_"$ALIGN"_tsne_p"$PERP"_m"$MAX_ITER"
 cp "$BASE"_"$ALIGN"_tsne_p"$PERP"_m"$MAX_ITER" ../
