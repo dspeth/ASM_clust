@@ -1,7 +1,7 @@
-## ASM-clust
+## ASM-Clust
 
 #### Overview:
-The three scripts in this repository comprise ASM-clust, an approach to de novo classify complex protein superfamilies.
+The three scripts in this repository comprise ASM-Clust, an approach to de novo classify complex protein superfamilies.
 ASM-Clust is implemented in bash with two helper scripts in perl, and will take a protein fasta file as the sole input. 
 
 Fasta files are processed with ASM_clust.sh, which then:
@@ -13,7 +13,7 @@ Fasta files are processed with ASM_clust.sh, which then:
 
 
 #### Usage:
-ASM_clust.sh [options] fasta_file   
+ASM_Clust.sh [options] fasta_file   
 Options:   
 -s INTEGER (subset of sequences for matrix, default 1000)   
 -p INTEGER (t-SNE perplexity value, default 1000)   
