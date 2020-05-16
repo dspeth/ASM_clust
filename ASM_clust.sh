@@ -73,7 +73,7 @@ INPUT="$1"
 TEST=$(head -n 1 "$INPUT")
 if [[ ${TEST:0:1} != ">" ]] ; then
 	echo "input file does not apppear to be a fastA file"
-       	exit 1
+	exit 1
 fi
 if [ ! -z $FASTAREF ] ; then
 	REFTEST=$(head -n 1 $FASTAREF)
@@ -93,6 +93,20 @@ elif [ ${INPUT: -6} == ".fasta" ]; then
 else
 	echo "input file extension has to be .faa, .fa, or .fasta"
 	exit 1
+fi
+
+#### check whether input fasta file or reference fasta contain illegal characters, currently only "/"
+if grep "/" $INPUT > /dev/null ; then
+	printf "Fasta header(s) in input file contain \"/\", this will cause problems.\n"
+	printf "Please remove \"/\" from files and rerun ASM-Clust\n\n"
+	exit 1
+fi
+if [ ! -z $FASTAREF ] ; then
+    if grep "/" $FASTAREF > /dev/null ; then
+		printf "Fasta header(s) in reference file contain \"/\", this will cause problems.\n"
+       	printf "Please remove \"/\" from files and rerun ASM-Clust\n\n"
+       	exit 1
+	fi
 fi
 
 ##### pick subset
