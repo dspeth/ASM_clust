@@ -13,7 +13,7 @@ Fasta files are processed with ASM_clust.sh, which then:
 
 
 #### Usage:
-ASM_Clust.sh [options] fasta_file   
+ASM_clust.sh [options] fasta_file   
 Options:   
 -s INTEGER (subset of sequences for matrix, default 1000)   
 -p INTEGER (t-SNE perplexity value, default 1000)   
@@ -24,7 +24,7 @@ Options:
 
 
 Although the clustering is generally similar with multiple randomly chosen subsets, the subset can be provided as a fasta file with the -f flag for reproducibility.
-The output of ASM_Clust.sh can be visualized as a scatterplot where each dot represents a sequence, and clusters are readily apparent. This format allows additional annotation with sequence features, such as taxonomy, length, or composition.
+The output of ASM_clust.sh can be visualized as a scatterplot where each dot represents a sequence, and clusters are readily apparent. This format allows additional annotation with sequence features, such as taxonomy, length, or composition.
 
 
 #### External dependencies:
@@ -37,9 +37,9 @@ The output of ASM_Clust.sh can be visualized as a scatterplot where each dot rep
 
 
 #### Recommended setup:
-For reproducibility I recommend running ASM_clust in a conda environment with the dependencies installed.
+For reproducibility I recommend running ASM-Clust in a conda environment with the dependencies installed.
 
-1) Make a directory for ASM_clust and enter the directory.   
+1) Make a directory for ASM-Clust and enter the directory.   
 ```mkdir ASM_Clust```   
 ```cd ASM_Clust```   
 
@@ -60,7 +60,7 @@ The alignment software versions specified below were used when testing ASM-Clust
 ```conda install -c bioconda -c conda-forge diamond=0.9.24```   
 
 5) add links to the relevant executables to the anaconda environment /bin directory to place them in you PATH when the environment is loaded.   
-```ln -s /absolute/path/to/ASM_Clust.sh /absolute/path/to/ASM_clust/conda/env/bin```   
+```ln -s /absolute/path/to/ASM_clust.sh /absolute/path/to/ASM_clust/conda/env/bin```   
 ```ln -s /absolute/path/to/merge_tab_files.pl /absolute/path/to/ASM_clust/conda/env/bin```   
 ```ln -s /absolute/path/to/tab_seq_lookup.pl /absolute/path/to/ASM_clust/conda/env/bin```   
 ```ln -s /absolute/path/to/bhtsne.py /absolute/path/to/ASM_clust/conda/env/bin```   
