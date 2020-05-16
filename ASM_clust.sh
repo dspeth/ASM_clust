@@ -145,7 +145,7 @@ echo "seqID" >> "$BASE"_matrix
 cat "$BASE"_ids >> "$BASE"_matrix
 for i in score_* ; do cut -f 2 "$i" | paste "$BASE"_matrix - > "$BASE"_matrix_temp ; mv "$BASE"_matrix_temp "$BASE"_matrix ; done
 cut -f 2- "$BASE"_matrix > "$BASE"_matrix_wo_id
-tail -n+2 my_file "$BASE"_matrix_wo_id > "$BASE"_matrix_wo_id_wo_head
+tail -n+2 "$BASE"_matrix_wo_id > "$BASE"_matrix_wo_id_wo_head
 
 ##### Run TSNE
 printf "Alignment score matrix generated, running BH-tSNE\n\n"
